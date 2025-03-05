@@ -70,9 +70,9 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="relative h-8 w-8 rounded-full bg-violet-600 flex items-center justify-center">
-              <span className="text-white font-semibold">JC</span>
+              <span className="text-white font-semibold">A</span>
             </div>
-            <span className="font-medium text-gray-100">JESSICA CONNER</span>
+            <span className="font-medium text-gray-100 ">Amarachukwu</span>
           </Link>
 
           {/* Desktop Navigation */}
