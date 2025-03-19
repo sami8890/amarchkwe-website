@@ -1,78 +1,117 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react"
+import Link from "next/link"
+import { motion } from "framer-motion"
+import { Menu, X, ChevronDown, Search, Phone, Mail, Calendar } from 'lucide-react'
+import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   // Navigation links
   const navLinks = [
     { name: "Home", href: "/" },
     {
       name: "Services",
-      href: "/services",
+      href: "#services",
+     
+    },
+    { name: "Testimonials", href: "#testimonials" },
+    {
+      name: "Contact",
+      href: "#contact",
       hasDropdown: true,
       dropdownItems: [
-        { name: "Virtual Support", href: "/services/#Virtual Support" },
-        { name: "Voiceover Services", href: "/services/#voiceover Services" },
-        { name: " Public Speaking", href: "/services/#public speaking" },
-      ]
+        {
+          name: "Email",
+          href: "mailto:claireozoagu@gmail.com",
+          icon: <Mail size={14} className="mr-2" />,
+        },
+        {
+          name: "WhatsApp",
+          href: "https://wa.me/2349058014731",
+          icon: <Phone size={14} className="mr-2" />,
+        },
+        {
+          name: "Schedule a Call",
+          href: "https://calendly.com/claireozoagu/let-s-talk-about-your-need",
+          icon: <Calendar size={14} className="mr-2" />,
+        },
+      ],
     },
-    { name: "Testimonials", href: "/testimonials" },
-  ];
+  ]
 
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY;
+      const offset = window.scrollY
       if (offset > 50) {
-        setScrolled(true);
+        setScrolled(true)
       } else {
-        setScrolled(false);
+        setScrolled(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  // Add smooth scrolling for anchor links
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+
+      if (!anchor) return;
+
+      const href = anchor.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+
+      e.preventDefault();
+
+      const targetId = href.substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        setIsOpen(false); // Close mobile menu if open
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
 
   // State for dropdown on mobile
-  const [activeDropdown, setActiveDropdown] = useState<number | null>(null);
-
-  
+  const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
 
   const toggleDropdown = (index: number): void => {
     if (activeDropdown === index) {
-      setActiveDropdown(null);
+      setActiveDropdown(null)
     } else {
-      setActiveDropdown(index);
+      setActiveDropdown(index)
     }
-  };
+  }
 
   const handleBookCall = () => {
-    window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank");
-  };
+    window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+  }
 
   return (
     <header
-      className={`fixed w-full z-50 transition-all duration-300 ${scrolled
-          ? "bg-zinc-950/90 backdrop-blur-md py-3 shadow-md"
-          : "bg-transparent py-5"
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-zinc-950/90 backdrop-blur-md py-3 shadow-md" : "bg-transparent py-5"
         }`}
     >
       <div className="container px-4 md:px-6 mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="relative h-8 w-8 rounded-full bg-violet-600 flex items-center justify-center">
-              <span className="text-white font-semibold">A</span>
+            <div className="relative h-8 w-8 rounded-full bg-[#0002AF] flex items-center justify-center">
+              <span className="text-white font-semibold">VA</span>
             </div>
-            <span className="font-medium text-gray-100 ">Amarachukwu</span>
+            <span className="font-medium text-gray-100">Your-VA-Next_Click</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -84,7 +123,9 @@ export default function Navbar() {
                   className="text-gray-300 hover:text-violet-300 transition-colors duration-200 flex items-center gap-1"
                 >
                   {link.name}
-                  {link.hasDropdown && <ChevronDown size={16} className="group-hover:rotate-180 transition-transform duration-200" />}
+                  {link.hasDropdown && (
+                    <ChevronDown size={16} className="group-hover:rotate-180 transition-transform duration-200" />
+                  )}
                 </Link>
 
                 {link.hasDropdown && (
@@ -94,8 +135,10 @@ export default function Navbar() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="block px-4 py-2 text-sm text-gray-300 hover:bg-violet-900/30 hover:text-violet-300"
+                          target={item.href.startsWith("http") || item.href.startsWith("mailto") ? "_blank" : undefined}
+                          className="px-4 py-2 text-sm text-gray-300 hover:bg-violet-900/30 hover:text-violet-300 flex items-center"
                         >
+                          {"icon" in item && item.icon}
                           {item.name}
                         </Link>
                       ))}
@@ -106,12 +149,15 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* CTA Button - Desktop */}
-          <div className="hidden md:block">
+          {/* Search and CTA Button - Desktop */}
+          <div className="hidden md:flex items-center gap-4">
+            <button className="text-gray-300 hover:text-violet-300 transition-colors duration-200" aria-label="Search">
+              <Search size={18} />
+            </button>
             <Button
               onClick={handleBookCall}
               size="sm"
-              className="bg-[#0002AF] hover:bg-violet-700 text-white rounded-full"
+              className="bg-[#0002AF] hover:bg-[#0003FF] text-white rounded-full"
             >
               Get Started
             </Button>
@@ -150,10 +196,7 @@ export default function Navbar() {
                       {link.name}
                     </Link>
                     {link.hasDropdown && (
-                      <button
-                        onClick={() => toggleDropdown(index)}
-                        className="p-2 text-gray-300 hover:text-violet-300"
-                      >
+                      <button onClick={() => toggleDropdown(index)} className="p-2 text-gray-300 hover:text-violet-300">
                         <ChevronDown
                           size={16}
                           className={`transition-transform duration-200 ${activeDropdown === index ? "rotate-180" : ""}`}
@@ -168,9 +211,11 @@ export default function Navbar() {
                         <Link
                           key={item.name}
                           href={item.href}
-                          className="block py-2 text-sm text-gray-400 hover:text-violet-300"
+                          target={item.href.startsWith("http") || item.href.startsWith("mailto") ? "_blank" : undefined}
+                          className=" py-2 text-sm text-gray-400 hover:text-violet-300 flex items-center"
                           onClick={() => setIsOpen(false)}
                         >
+                          {"icon" in item && item.icon}
                           {item.name}
                         </Link>
                       ))}
@@ -178,10 +223,23 @@ export default function Navbar() {
                   )}
                 </div>
               ))}
+
+              {/* Search in mobile menu */}
+              <div className="relative mt-4">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Search size={16} className="text-gray-400" />
+                </div>
+                <input
+                  type="search"
+                  placeholder="Search..."
+                  className="w-full py-2 pl-10 pr-4 bg-zinc-800 border border-zinc-700 rounded-lg text-sm text-gray-300 focus:outline-none focus:ring-1 focus:ring-violet-500 focus:border-violet-500"
+                />
+              </div>
+
               <Button
                 onClick={handleBookCall}
                 size="sm"
-                className="bg-violet-600 hover:bg-violet-700 text-white rounded-full mt-4 w-full"
+                className="bg-[#0002AF] hover:bg-[#0003FF] text-white rounded-full mt-4 w-full"
               >
                 Get Started
               </Button>
@@ -190,5 +248,5 @@ export default function Navbar() {
         </motion.div>
       )}
     </header>
-  );
+  )
 }

@@ -48,7 +48,7 @@ export default function MinimalHero() {
 
                         {/* Service tags with subtle hover effect */}
                         <div className="flex flex-wrap gap-3">
-                            {["Customer Support", "Admin Tasks", "Content Creation"].map(
+                            {["Virtual Assistance", "Admin Tasks", "Content Creation"].map(
                                 (service) => (
                                     <div
                                         key={service}
@@ -126,7 +126,7 @@ export default function MinimalHero() {
                             {/* Fixed Image component implementation */}
                             <div className="relative w-full h-full">
                                 <Image
-                                    src="/gooo.png"
+                                    src="/new.png"
                                     alt="Virtual Assistant Professional"
                                     width={600}
                                     height={600}

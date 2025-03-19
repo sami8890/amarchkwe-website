@@ -1,87 +1,93 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import Image from "next/image"
 
 export default function EnhancedTestimonialSection() {
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "Marketing Director",
-      company: "TechVision Inc.",
-      screenshot: "/test1.png",
+      name: "Vincent Mator",
+      role: "Virtual Assistant",
+      company: "Business Client",
+      screenshot: "/testimonials/4.png",
       quote:
-        "Working with this virtual assistant transformed our workflow. The level of professionalism and attention to detail exceeded all expectations.",
+        "I just want to take a moment to express how thrilled I am with the incredible work you've done on our project. Your professionalism and attention to detail really stand out, and I can see how much value you bring to the team. I'm excited about the potential for us to continue working together and would love to explore more opportunities with you in the future. I truly appreciate the creative freedom to keep producing amazing work, and I'm committed to ensuring you feel supported and valued here. Looking forward to more great projects ahead! Thank you once again!",
       stats: {
-        improvement: "42% increase in team productivity",
-        timeframe: "3 months",
+        improvement: "Increased productivity by 35%",
       },
       rating: 5,
     },
     {
       id: 2,
-      name: "Michael Chen",
-      role: "Startup Founder",
-      company: "Innovate Solutions",
-      screenshot: "/test2.png",
-      quote:
-        "As a founder, delegating tasks was always difficult until I found this service. Now I can focus on growth while knowing the day-to-day operations are in capable hands.",
+      name: "Ogden Rattliff",
+      role: "Virtual Assistant",
+      company: "Startup Client",
+      screenshot: "/testimonials/3.png",
+      quote: "Thank you. You've shown that you can do a presentation, thank you!",
       stats: {
-        improvement: "20+ hours saved per week",
-        timeframe: "6 months",
+        improvement: "15+ hours saved weekly",
       },
       rating: 5,
     },
     {
       id: 3,
-      name: "Olivia Rodriguez",
-      role: "E-commerce Manager",
-      company: "StyleHouse",
-      screenshot: "/test3.png",
-      quote:
-        "The content creation and customer support assistance has been game-changing for our online presence. Our engagement metrics have improved significantly.",
+      name: "Chukwu Eunice",
+      role: "Research Virtual Assistant",
+      company: "Research Project",
+      screenshot: "/testimonials/2.png",
+      quote: "I sincerely appreciate your competence and level of professionalism. Thank you.",
       stats: {
-        improvement: "68% growth in customer engagement",
-        timeframe: "4 months",
+        improvement: "Research time reduced by 40%",
       },
       rating: 5,
     },
-  ];
+    {
+      id: 4,
+      name: "Miracle Okechi",
+      role: "VA for Presentation preparation",
+      company: "Event Organizer",
+      screenshot: "/testimonials/1.png",
+      quote:
+        "Thanks Amarachi Claire (VA), you did an outstanding job with scheduling booking for shortlist market. You took time and understood my needs, your work saved me time and stress. If needed help with a one-time task I recommend you contact her she is perfect.",
+      stats: {
+        improvement: "Event preparation time cut by 50%",
+      },
+      rating: 5,
+    },
+  ]
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isAutoplay, setIsAutoplay] = useState(true);
-  const [direction, setDirection] = useState(1); // 1 for right, -1 for left
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [isAutoplay, setIsAutoplay] = useState(true)
+  const [direction, setDirection] = useState(1) // 1 for right, -1 for left
 
   // Autoplay functionality
   useEffect(() => {
-    if (!isAutoplay) return;
+    if (!isAutoplay) return
 
     const interval = setInterval(() => {
-      setActiveIndex((prev) =>
-        prev === testimonials.length - 1 ? 0 : prev + 1
-      );
-    }, 8000);
+      setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
+    }, 8000)
 
-    return () => clearInterval(interval);
-  }, [isAutoplay, testimonials.length]);
+    return () => clearInterval(interval)
+  }, [isAutoplay, testimonials.length])
 
   // Pause autoplay on hover
-  const handleMouseEnter = () => setIsAutoplay(false);
-  const handleMouseLeave = () => setIsAutoplay(true);
+  const handleMouseEnter = () => setIsAutoplay(false)
+  const handleMouseLeave = () => setIsAutoplay(true)
 
   const handleNext = () => {
-    setDirection(1);
-    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-  };
+    setDirection(1)
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1))
+  }
 
   const handlePrev = () => {
-    setDirection(-1);
-    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-  };
+    setDirection(-1)
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
+  }
   const variants = {
     enter: (direction: number) => ({
       x: direction > 0 ? 200 : -200,
@@ -95,11 +101,10 @@ export default function EnhancedTestimonialSection() {
       x: direction > 0 ? -200 : 200,
       opacity: 0,
     }),
-  };
-
+  }
 
   return (
-    <div className="relative bg-zinc-950 py-20 overflow-hidden">
+    <div id="testimonials" className="relative bg-zinc-950 py-20 overflow-hidden">
       {/* Subtle gradient background with animated particles */}
       <div
         className="absolute inset-0 bg-gradient-to-t from-violet-950/20 to-transparent overflow-hidden"
@@ -107,8 +112,8 @@ export default function EnhancedTestimonialSection() {
       >
         {/* Decorative elements that mimic stars/particles */}
         {[...Array(20)].map((_, i) => {
-          const animationDuration = `${Math.random() * 10 + 10}s`;
-          const animationDelay = `${Math.random() * 5}s`;
+          const animationDuration = `${Math.random() * 10 + 10}s`
+          const animationDelay = `${Math.random() * 5}s`
 
           return (
             <div
@@ -126,7 +131,7 @@ export default function EnhancedTestimonialSection() {
                 animationTimingFunction: "ease-in-out",
               }}
             />
-          );
+          )
         })}
       </div>
 
@@ -158,17 +163,12 @@ export default function EnhancedTestimonialSection() {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-violet-500 to-violet-300 mx-auto mb-6 rounded-full"></div>
           <p className="max-w-2xl mx-auto text-gray-400">
-            See the real impact of professional virtual assistance through these
-            client transformations.
+            See the real impact of professional virtual assistance through these client testimonials.
           </p>
         </motion.div>
 
         {/* Enhanced testimonials with screenshots */}
-        <div
-          className="max-w-6xl mx-auto"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+        <div className="max-w-6xl mx-auto" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           <div className="relative">
             {/* Testimonial card with improved animations */}
             <AnimatePresence initial={false} custom={direction} mode="wait">
@@ -194,7 +194,7 @@ export default function EnhancedTestimonialSection() {
                       animate={{ y: [0, -10, 0] }}
                       transition={{
                         duration: 6,
-                        repeat: Infinity,
+                        repeat: Number.POSITIVE_INFINITY,
                         ease: "easeInOut",
                       }}
                       className="relative rounded-lg overflow-hidden border border-gray-800 shadow-2xl"
@@ -204,18 +204,12 @@ export default function EnhancedTestimonialSection() {
                         className="absolute inset-0 bg-gradient-to-tr from-violet-500/20 to-transparent blur-md"
                         aria-hidden="true"
                       />
-                      <div className="relative aspect-video overflow-hidden rounded-lg">
+                      <div className="relative aspect-video overflow-hidden rounded-lg bg-zinc-800">
                         <Image
-                          src={testimonials[activeIndex].screenshot}
-                          alt={`Work sample for ${testimonials[activeIndex].company}`}
-                          width={600}
-                          height={338}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            objectFit: "contain",
-                          }}
-                          className="rounded-lg transition-transform duration-500 hover:scale-105"
+                          src={testimonials[activeIndex].screenshot || "/placeholder.svg"}
+                          alt={`Testimonial from ${testimonials[activeIndex].name}`}
+                          fill
+                          className="object-contain"
                           priority
                         />
                       </div>
@@ -228,13 +222,8 @@ export default function EnhancedTestimonialSection() {
                       transition={{ delay: 0.3 }}
                       className="bg-zinc-800/50 border border-gray-700 rounded-lg px-4 py-3 mt-4 shadow-lg"
                     >
-                      <div className="flex justify-between items-center">
-                        <div className="text-violet-300 font-medium">
-                          {testimonials[activeIndex].stats.improvement}
-                        </div>
-                        <div className="text-sm text-gray-400">
-                          in {testimonials[activeIndex].stats.timeframe}
-                        </div>
+                      <div className="flex justify-center items-center">
+                        <div className="text-violet-300 font-medium">{testimonials[activeIndex].stats.improvement}</div>
                       </div>
                     </motion.div>
                   </div>
@@ -242,8 +231,8 @@ export default function EnhancedTestimonialSection() {
                   {/* Testimonial content with enhanced styling */}
                   <div className="order-1 md:order-2">
                     <Quote className="h-8 w-8 text-violet-500/80 mb-4" />
-                    <blockquote className="text-gray-300 text-lg md:text-xl italic mb-8 leading-relaxed">
-                     &quot; {testimonials[activeIndex].quote}&quot;
+                    <blockquote className="text-gray-300 text-lg md:text-xl italic mb-8 leading-relaxed max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-violet-500/20 scrollbar-track-transparent">
+                      &quot;{testimonials[activeIndex].quote}&quot;
                     </blockquote>
 
                     {/* Rating stars */}
@@ -251,25 +240,16 @@ export default function EnhancedTestimonialSection() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-5 w-5 ${
-                            i < testimonials[activeIndex].rating
-                              ? "text-yellow-400 fill-yellow-400"
-                              : "text-gray-600"
-                          }`}
+                          className={`h-5 w-5 ${i < testimonials[activeIndex].rating ? "text-yellow-400 fill-yellow-400" : "text-gray-600"
+                            }`}
                         />
                       ))}
                     </div>
 
                     <div className="border-t border-gray-800 pt-4">
-                      <p className="font-medium text-gray-100 text-lg">
-                        {testimonials[activeIndex].name}
-                      </p>
-                      <p className="text-violet-300">
-                        {testimonials[activeIndex].role}
-                      </p>
-                      <p className="text-gray-400 text-sm">
-                        {testimonials[activeIndex].company}
-                      </p>
+                      <p className="font-medium text-gray-100 text-lg">{testimonials[activeIndex].name}</p>
+                      <p className="text-violet-300">{testimonials[activeIndex].role}</p>
+                      <p className="text-gray-400 text-sm">{testimonials[activeIndex].company}</p>
                     </div>
                   </div>
                 </div>
@@ -304,14 +284,11 @@ export default function EnhancedTestimonialSection() {
                 <button
                   key={index}
                   onClick={() => {
-                    setDirection(index > activeIndex ? 1 : -1);
-                    setActiveIndex(index);
+                    setDirection(index > activeIndex ? 1 : -1)
+                    setActiveIndex(index)
                   }}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    index === activeIndex
-                      ? "w-10 bg-violet-500"
-                      : "w-2 bg-gray-700 hover:bg-violet-500/50"
-                  }`}
+                  className={`h-2 rounded-full transition-all duration-300 ${index === activeIndex ? "w-10 bg-violet-500" : "w-2 bg-gray-700 hover:bg-violet-500/50"
+                    }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
@@ -320,5 +297,5 @@ export default function EnhancedTestimonialSection() {
         </div>
       </div>
     </div>
-  );
+  )
 }
