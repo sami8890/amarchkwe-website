@@ -68,7 +68,9 @@ export default function FAQSection() {
     }
 
     const handleBookCall = () => {
-        window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+        if (typeof window !== "undefined") {
+            window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+        }
     }
 
     return (
@@ -184,7 +186,8 @@ export default function FAQSection() {
                 >
                     <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Still have questions?</h3>
                     <p className="text-gray-400 mb-6 max-w-lg mx-auto">
-                        I&apos;m here to help! Schedule a free consultation call and let&apos;s discuss how I can support your business needs.
+                        I&apos;m here to help! Schedule a free consultation call and let&apos;s discuss how I can support your
+                        business needs.
                     </p>
                     <button
                         onClick={handleBookCall}

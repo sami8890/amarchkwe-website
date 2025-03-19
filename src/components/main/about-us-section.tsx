@@ -10,6 +10,8 @@ export default function AboutMeSection() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768)
     }
@@ -32,7 +34,9 @@ export default function AboutMeSection() {
   }, [isMobile])
 
   const handleContactClick = () => {
-    window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+    if (typeof window !== "undefined") {
+      window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+    }
   }
 
   return (
@@ -43,7 +47,7 @@ export default function AboutMeSection() {
           className="absolute top-0 right-0 w-full md:w-[800px] h-[500px] md:h-[800px] bg-purple-600/10 rounded-full blur-[80px] md:blur-[120px] opacity-70"
           style={{
             transform: !isMobile
-              ? `translate(${(mousePosition.x - window.innerWidth) * 0.02}px, ${(mousePosition.y - window.innerHeight) * 0.02}px)`
+              ? `translate(${(mousePosition.x - (typeof window !== "undefined" ? window.innerWidth : 0)) * 0.02}px, ${(mousePosition.y - (typeof window !== "undefined" ? window.innerHeight : 0)) * 0.02}px)`
               : "none",
           }}
         />
@@ -51,7 +55,7 @@ export default function AboutMeSection() {
           className="absolute bottom-0 left-0 w-full md:w-[800px] h-[500px] md:h-[800px] bg-blue-600/10 rounded-full blur-[80px] md:blur-[120px] opacity-70"
           style={{
             transform: !isMobile
-              ? `translate(${(mousePosition.x - window.innerWidth) * -0.02}px, ${(mousePosition.y - window.innerHeight) * -0.02}px)`
+              ? `translate(${(mousePosition.x - (typeof window !== "undefined" ? window.innerWidth : 0)) * -0.02}px, ${(mousePosition.y - (typeof window !== "undefined" ? window.innerHeight : 0)) * -0.02}px)`
               : "none",
           }}
         />
@@ -102,13 +106,7 @@ export default function AboutMeSection() {
 
               {/* Main image container - Added padding at the bottom to ensure stats card is visible */}
               <div className="relative rounded-2xl overflow-hidden aspect-[4/5] border-2 border-white/10 shadow-2xl pb-16 md:pb-20">
-                <Image
-                  src="/mmm.png"
-                  alt="Claire - Virtual Assistant"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+                <Image src="/mmm.png" alt="Claire - Virtual Assistant" fill className="object-cover" priority />
 
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F29]/80 to-transparent"></div>
@@ -356,3 +354,4 @@ export default function AboutMeSection() {
     </section>
   )
 }
+

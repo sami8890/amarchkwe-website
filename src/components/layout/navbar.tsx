@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Menu, X, ChevronDown, Search, Phone, Mail, Calendar } from 'lucide-react'
+import { Menu, X, ChevronDown, Search, Phone, Mail, Calendar } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export default function Navbar() {
@@ -16,7 +16,6 @@ export default function Navbar() {
     {
       name: "Services",
       href: "#services",
-     
     },
     { name: "Testimonials", href: "#testimonials" },
     {
@@ -45,6 +44,8 @@ export default function Navbar() {
 
   // Handle scroll effect
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const handleScroll = () => {
       const offset = window.scrollY
       if (offset > 50) {
@@ -60,29 +61,31 @@ export default function Navbar() {
 
   // Add smooth scrolling for anchor links
   useEffect(() => {
+    if (typeof window === "undefined") return
+
     const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const anchor = target.closest('a');
+      const target = e.target as HTMLElement
+      const anchor = target.closest("a")
 
-      if (!anchor) return;
+      if (!anchor) return
 
-      const href = anchor.getAttribute('href');
-      if (!href || !href.startsWith('#')) return;
+      const href = anchor.getAttribute("href")
+      if (!href || !href.startsWith("#")) return
 
-      e.preventDefault();
+      e.preventDefault()
 
-      const targetId = href.substring(1);
-      const targetElement = document.getElementById(targetId);
+      const targetId = href.substring(1)
+      const targetElement = document.getElementById(targetId)
 
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-        setIsOpen(false); // Close mobile menu if open
+        targetElement.scrollIntoView({ behavior: "smooth" })
+        setIsOpen(false) // Close mobile menu if open
       }
-    };
+    }
 
-    document.addEventListener('click', handleAnchorClick);
-    return () => document.removeEventListener('click', handleAnchorClick);
-  }, []);
+    document.addEventListener("click", handleAnchorClick)
+    return () => document.removeEventListener("click", handleAnchorClick)
+  }, [])
 
   // State for dropdown on mobile
   const [activeDropdown, setActiveDropdown] = useState<number | null>(null)
@@ -96,7 +99,9 @@ export default function Navbar() {
   }
 
   const handleBookCall = () => {
-    window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+    if (typeof window !== "undefined") {
+      window.open("https://calendly.com/claireozoagu/let-s-talk-about-your-need", "_blank")
+    }
   }
 
   return (
@@ -250,3 +255,4 @@ export default function Navbar() {
     </header>
   )
 }
+
