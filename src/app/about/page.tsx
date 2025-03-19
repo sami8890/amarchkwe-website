@@ -104,11 +104,14 @@ export default function ServicesSection() {
   ];
 
   const handleBookCall = () => {
-    window.open(
-      "https://calendly.com/claireozoagu/let-s-talk-about-your-need",
-      "_blank"
-    );
+    if (typeof window !== "undefined") {
+      window.open(
+        "https://calendly.com/claireozoagu/let-s-talk-about-your-need",
+        "_blank"
+      );
+    }
   };
+
 
   return (
     <section className="w-full py-24 bg-zinc-900 relative overflow-hidden">
